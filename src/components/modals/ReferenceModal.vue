@@ -11,107 +11,78 @@
       title="Show Night Order"
     />
     <h3>
-      Referencia de Personagens
+      Character Reference
       <font-awesome-icon icon="address-card" />
       {{ edition.name || "Custom Script" }}
     </h3>
-    <ul class="legend">
-      <li>
-        <span class="name">Nome</span>
-        <span class="icon">Icone</span>
-        <span class="ability">Habilidade</span>
-        <span class="player" v-if="Object.keys(playersByRole).length">
-          Jogador
-        </span>
-      </li>
-    </ul>
-    <div v-for="(teamRoles, team) in rolesGrouped" :key="team" :class="[team]">
-     <div v-if="team === 'townsfolk'">
-      <h4>{{ "cidadão" }}</h4>
+    <div
+      v-for="(teamRoles, team) in rolesGrouped"
+      :key="team"
+      :class="['team', team]"
+    >
+      <aside>
+        <h4>{{ team }}</h4>
+      </aside>
       <ul>
         <li v-for="role in teamRoles" :class="[team]" :key="role.id">
-          <span class="name">{{ role.name }}</span>
           <span
             class="icon"
             v-if="role.id"
             :style="{
-              backgroundImage: `url(${role.image ||
-                require('../../assets/icons/' + role.id + '.png')})`
+              backgroundImage: `url(${
+                role.image && grimoire.isImageOptIn
+                  ? role.image
+                  : require('../../assets/icons/' +
+                      (role.imageAlt || role.id) +
+                      '.png')
+              })`
             }"
           ></span>
-          <span class="ability">{{ role.ability }}</span>
-          <span class="player" v-if="Object.keys(playersByRole).length">{{
-            playersByRole[role.id] ? playersByRole[role.id].join(", ") : ""
-          }}</span>
+          <div class="role">
+            <span class="player" v-if="Object.keys(playersByRole).length">{{
+              playersByRole[role.id] ? playersByRole[role.id].join(", ") : ""
+            }}</span>
+            <span class="name">{{ role.name }}</span>
+            <span class="ability">{{ role.ability }}</span>
+          </div>
         </li>
+        <li :class="[team]"></li>
+        <li :class="[team]"></li>
       </ul>
-      </div>
     </div>
-<div v-for="(teamRoles, team) in rolesGrouped" :key="team" :class="[team]">
-     <div v-if="team === 'outsider'">
-      <h4>{{ "forasteiro" }}</h4>
+
+    <div class="team jinxed" v-if="jinxed.length">
+      <aside>
+        <h4>Jinxed</h4>
+      </aside>
       <ul>
-        <li v-for="role in teamRoles" :class="[team]" :key="role.id">
-          <span class="name">{{ role.name }}</span>
+        <li v-for="(jinx, index) in jinxed" :key="index">
           <span
             class="icon"
-            v-if="role.id"
             :style="{
-              backgroundImage: `url(${role.image ||
-                require('../../assets/icons/' + role.id + '.png')})`
+              backgroundImage: `url(${require('../../assets/icons/' +
+                jinx.first.id +
+                '.png')})`
             }"
           ></span>
-          <span class="ability">{{ role.ability }}</span>
-          <span class="player" v-if="Object.keys(playersByRole).length">{{
-            playersByRole[role.id] ? playersByRole[role.id].join(", ") : ""
-          }}</span>
-        </li>
-      </ul>
-      </div>
-    </div>
-<div v-for="(teamRoles, team) in rolesGrouped" :key="team" :class="[team]">
-     <div v-if="team === 'minion'">
-      <h4>{{ "lacaio" }}</h4>
-      <ul>
-        <li v-for="role in teamRoles" :class="[team]" :key="role.id">
-          <span class="name">{{ role.name }}</span>
           <span
             class="icon"
-            v-if="role.id"
             :style="{
-              backgroundImage: `url(${role.image ||
-                require('../../assets/icons/' + role.id + '.png')})`
+              backgroundImage: `url(${require('../../assets/icons/' +
+                jinx.second.id +
+                '.png')})`
             }"
           ></span>
-          <span class="ability">{{ role.ability }}</span>
-          <span class="player" v-if="Object.keys(playersByRole).length">{{
-            playersByRole[role.id] ? playersByRole[role.id].join(", ") : ""
-          }}</span>
+          <div class="role">
+            <span class="name"
+              >{{ jinx.first.name }} & {{ jinx.second.name }}</span
+            >
+            <span class="ability">{{ jinx.reason }}</span>
+          </div>
         </li>
+        <li></li>
+        <li></li>
       </ul>
-      </div>
-    </div>
-<div v-for="(teamRoles, team) in rolesGrouped" :key="team" :class="[team]">
-     <div v-if="team === 'demon'">
-      <h4>{{ "demônio" }}</h4>
-      <ul>
-        <li v-for="role in teamRoles" :class="[team]" :key="role.id">
-          <span class="name">{{ role.name }}</span>
-          <span
-            class="icon"
-            v-if="role.id"
-            :style="{
-              backgroundImage: `url(${role.image ||
-                require('../../assets/icons/' + role.id + '.png')})`
-            }"
-          ></span>
-          <span class="ability">{{ role.ability }}</span>
-          <span class="player" v-if="Object.keys(playersByRole).length">{{
-            playersByRole[role.id] ? playersByRole[role.id].join(", ") : ""
-          }}</span>
-        </li>
-      </ul>
-      </div>
     </div>
   </Modal>
 </template>
@@ -119,16 +90,33 @@
 <script>
 import Modal from "./Modal";
 import { mapMutations, mapState } from "vuex";
+
 export default {
   components: {
     Modal
   },
-  data: function() {
-    return {
-      roleSelection: {}
-    };
-  },
   computed: {
+    /**
+     * Return a list of jinxes in the form of role IDs and a reason
+     * @returns {*[]} [{first, second, reason}]
+     */
+    jinxed: function() {
+      const jinxed = [];
+      this.roles.forEach(role => {
+        if (this.jinxes.get(role.id)) {
+          this.jinxes.get(role.id).forEach((reason, second) => {
+            if (this.roles.get(second)) {
+              jinxed.push({
+                first: role,
+                second: this.roles.get(second),
+                reason
+              });
+            }
+          });
+        }
+      });
+      return jinxed;
+    },
     rolesGrouped: function() {
       const rolesGrouped = {};
       this.roles.forEach(role => {
@@ -152,7 +140,7 @@ export default {
       });
       return players;
     },
-    ...mapState(["roles", "modals", "edition"]),
+    ...mapState(["roles", "modals", "edition", "grimoire", "jinxes"]),
     ...mapState("players", ["players"])
   },
   methods: {
@@ -163,140 +151,184 @@ export default {
 
 <style lang="scss" scoped>
 @import "../../vars.scss";
+
 .toggle {
   position: absolute;
   left: 20px;
-  top: 20px;
+  top: 15px;
   cursor: pointer;
   &:hover {
     color: red;
   }
 }
+
 h3 {
   margin: 0 40px;
   svg {
     vertical-align: middle;
   }
 }
-h4 {
-  text-transform: capitalize;
-  display: flex;
-  align-items: center;
-  height: 20px;
-  &:before,
-  &:after {
-    content: " ";
-    width: 100%;
-    height: 1px;
-    border-radius: 2px;
-  }
-  &:before {
-    margin-right: 15px;
-  }
-  &:after {
-    margin-left: 15px;
-  }
-}
+
 .townsfolk {
-  .name,
-  .player,
-  h4 {
+  .name {
     color: $townsfolk;
-    &:before,
-    &:after {
-      background-color: $townsfolk;
-    }
+  }
+  aside {
+    background: linear-gradient(-90deg, $townsfolk, transparent);
   }
 }
 .outsider {
-  .name,
-  .player,
-  h4 {
+  .name {
     color: $outsider;
-    &:before,
-    &:after {
-      background-color: $outsider;
-    }
+  }
+  aside {
+    background: linear-gradient(-90deg, $outsider, transparent);
   }
 }
 .minion {
-  .name,
-  .player,
-  h4 {
+  .name {
     color: $minion;
-    &:before,
-    &:after {
-      background-color: $minion;
-    }
+  }
+  aside {
+    background: linear-gradient(-90deg, $minion, transparent);
   }
 }
 .demon {
-  .name,
-  .player,
-  h4 {
+  .name {
     color: $demon;
-    &:before,
-    &:after {
-      background-color: $demon;
+  }
+  aside {
+    background: linear-gradient(-90deg, $demon, transparent);
+  }
+}
+
+.jinxed {
+  .name {
+    color: $fabled;
+  }
+  aside {
+    background: linear-gradient(-90deg, $fabled, transparent);
+  }
+}
+
+.team {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  &:not(:last-child):after {
+    content: " ";
+    display: block;
+    width: 25%;
+    height: 1px;
+    background: linear-gradient(90deg, #ffffffaa, transparent);
+    position: absolute;
+    left: 0;
+    bottom: 0;
+  }
+  aside {
+    width: 30px;
+    display: flex;
+    flex-grow: 0;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    overflow: hidden;
+    text-shadow: 0 0 4px black;
+  }
+
+  h4 {
+    text-transform: uppercase;
+    text-align: center;
+    transform: rotate(90deg);
+    transform-origin: center;
+    font-size: 80%;
+  }
+
+  &.jinxed {
+    .icon {
+      margin: 0 -5px;
     }
   }
 }
+
 ul {
+  flex-grow: 1;
+  display: flex;
+  padding: 5px 0;
+
   li {
     display: flex;
-    width: 100%;
     align-items: center;
-    align-content: center;
-    /*background: linear-gradient(0deg, #ffffff0f, transparent);*/
-    border-radius: 10px;
+    flex-grow: 1;
+    width: 420px;
     .icon {
-      width: 6vh;
+      width: 8vh;
       background-size: cover;
       background-position: 0 -5px;
-      flex-grow: 0;
       flex-shrink: 0;
-      margin: 0 10px;
-      text-align: center;
-      border-left: 1px solid #ffffff1f;
-      border-right: 1px solid #ffffff1f;
+      flex-grow: 0;
       &:after {
         content: " ";
         display: block;
-        padding-top: 66%;
+        padding-top: 75%;
       }
     }
-    .name {
-      flex-grow: 0;
-      flex-shrink: 0;
-      width: 15%;
-      font-weight: bold;
-      text-align: right;
-      font-family: "Papyrus", sans-serif;
-      font-size: 110%;
-    }
-    .player {
-      flex-grow: 0;
-      flex-shrink: 1;
-      text-align: right;
-      margin: 0 10px;
-    }
-    .ability {
+    .role {
+      line-height: 80%;
       flex-grow: 1;
     }
-  }
-  &.legend {
-    font-weight: bold;
-    height: 20px;
-    margin-top: 10px;
-    li span {
-      background: none;
-      height: auto;
-      font-family: inherit;
-      font-size: inherit;
+    .name {
+      font-weight: bold;
+      font-size: 75%;
+      display: block;
     }
-    .icon:after {
-      padding-top: 0;
+    .player {
+      color: #888;
+      float: right;
+      font-size: 60%;
+    }
+    .ability {
+      font-size: 70%;
     }
   }
+}
+
+/** break into 1 column below 1200px **/
+@media screen and (max-width: 1199.98px) {
+  .modal {
+    max-width: 60%;
+  }
+  ul {
+    li {
+      .icon {
+        width: 6vh;
+      }
+      .role {
+        line-height: 100%;
+      }
+      .name {
+        font-size: 100%;
+      }
+      .player {
+        font-size: 100%;
+      }
+      .ability {
+        font-size: 90%;
+      }
+    }
+  }
+}
+
+/** trim icon size on maximized one-column sheet **/
+@media screen and (max-width: 991.98px) {
+  .characters .modal.maximized ul li .icon {
+    width: 5.1vh;
+  }
+}
+
+/** hide players when town square is set to "public" **/
+#townsquare.public ~ .characters .modal .player {
+  display: none;
 }
 </style>
