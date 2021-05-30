@@ -242,6 +242,7 @@ ul.editions .edition {
     color: red;
   }
 }
+
 .custom {
   text-align: center;
   input[type="file"] {
