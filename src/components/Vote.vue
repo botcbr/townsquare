@@ -10,27 +10,18 @@
       <em>{{ nominee.name }}</em
       >!
       <br />
-      <template v-if="nominee.role.team !== 'traveler'">
-        <em class="blue">
-          {{ voters.length }} voto{{ voters.length !== 1 ? "s" : "" }}
-        </em>
-        a Favor
-        <em>(maioria é {{ Math.ceil(alive / 2) }})</em>
-      </template>
-      <template v-else>
-        <em>{{ Math.ceil(players.length / 2) }} votos</em> requeridos para a maioria
-        <em>Maioria</em>.
-      </template>
-
-      <div v-if="session.isVoteInProgress || session.lockedVote > 1">
-        <em class="blue" v-if="voters.length">{{ voters.join(", ") }} </em>
-        <span v-else>Ninguém</span>
-        a <em>Favor</em>
-      </div>
+      <em class="blue">
+        {{ voters.length }} vote{{ voters.length !== 1 ? "s" : "" }}
+      </em>
+      a favor
+      <em v-if="nominee.role.team !== 'traveler'">
+        (majority is {{ Math.ceil(alive / 2) }})
+      </em>
+      <em v-else>(majority is {{ Math.ceil(players.length / 2) }})</em>
 
       <template v-if="!session.isSpectator">
         <div v-if="!session.isVoteInProgress && session.lockedVote < 1">
-          Tempo por jogador:
+          Tempo de voto:
           <font-awesome-icon
             @mousedown.prevent="setVotingSpeed(-500)"
             icon="minus-circle"
@@ -64,6 +55,20 @@
           </template>
           <div class="button demon" @click="finish">Fechar</div>
         </div>
+        <div class="button-group mark" v-if="nominee.role.team !== 'traveler'">
+          <div
+            class="button"
+            :class="{
+              disabled: session.nomination[1] === session.markedPlayer
+            }"
+            @click="setMarked"
+          >
+            Mark for execution
+          </div>
+          <div class="button" @click="removeMarked">
+            Clear mark
+          </div>
+        </div>
       </template>
       <template v-else-if="canVote">
         <div v-if="!session.isVoteInProgress">
@@ -87,7 +92,7 @@
         </div>
       </template>
       <div v-else-if="!player">
-        Por favor clame um assento para votar.
+        Por favor, clame um assento para votar.
       </div>
     </div>
     <transition name="blur">
@@ -125,7 +130,7 @@ export default {
       const nomination = this.session.nomination[0];
       return {
         transform: `rotate(${Math.round((nomination / players) * 360)}deg)`,
-        transitionDuration: this.session.votingSpeed - 0.1 + "s"
+        transitionDuration: this.session.votingSpeed - 100 + "ms"
       };
     },
     nominee: function() {
@@ -170,7 +175,10 @@ export default {
         ...voters.slice(nomination + 1),
         ...voters.slice(0, nomination + 1)
       ];
-      return reorder.slice(0, this.session.lockedVote - 1).filter(n => !!n);
+      return (this.session.lockedVote
+        ? reorder.slice(0, this.session.lockedVote - 1)
+        : reorder
+      ).filter(n => !!n);
     }
   },
   data() {
@@ -235,6 +243,12 @@ export default {
       if (speed > 0) {
         this.$store.commit("session/setVotingSpeed", speed);
       }
+    },
+    setMarked() {
+      this.$store.commit("session/setMarkedPlayer", this.session.nomination[1]);
+    },
+    removeMarked() {
+      this.$store.commit("session/setMarkedPlayer", -1);
     }
   }
 };
@@ -256,6 +270,11 @@ export default {
   text-align: center;
   text-shadow: 0 1px 2px #000000, 0 -1px 2px #000000, 1px 0 2px #000000,
     -1px 0 2px #000000;
+
+  .mark .button {
+    font-size: 75%;
+    margin: 0;
+  }
 
   &:after {
     content: " ";
