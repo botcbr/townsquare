@@ -662,7 +662,7 @@
     "reminders": ["Envenenado",
       "Morto"],
     "setup": false,
-    "ability": "Toda Noite, escolha um jogador: ele é envenenado. O jogador envenenado anteriormente morre e então é curado do veneno."
+    "ability": "Toda noite, escolha um jogador: ele é envenenado. O jogador envenenado anteriormente morre e então é curado do veneno."
   },
   {
     "id": "shabaloth",
