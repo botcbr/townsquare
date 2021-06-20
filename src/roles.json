@@ -365,7 +365,7 @@
     "otherNightReminder": "Se o Neto da Vovó foi morto pelo Demônio esta noite: •  A Vovó morre.",
     "reminders": ["Neto"],
     "setup": false,
-    "ability": "Na primeira Noite, você descobre o personagem de um jogador. Se o Demônio o matar, você também morre."
+    "ability": "Você começa sabendo o personagem de um jogador. Se o Demônio o matar, você também morre."
   },
   {
     "id": "sailor",
@@ -378,7 +378,7 @@
     "otherNightReminder": "O jogador anteriormente bêbado não está mais bêbado. O Marinheiro escolhe um jogador vivo. O Marinheiro ou o jogador escolhido está bêbado.",
     "reminders": ["Bêbado"],
     "setup": false,
-    "ability": "Toda Noite, escolha um jogador: ele ou você fica bêbado até o próximo anoitecer. Você nunca morre."
+    "ability": "Toda noite, escolha um jogador: ele ou você fica bêbado até o anoitecer. Você não pode morrer."
   },
   {
     "id": "chambermaid",
@@ -404,7 +404,7 @@
     "otherNightReminder": "O Exorcista escolhe um jogador, diferente da noite anterior. Se esse jogador for o Demônio: • Acorde o Demônio. Informe-o quem é o exorcista. • O Demônio não age esta noite.",
     "reminders": ["Escolhido"],
     "setup": false,
-    "ability": "Toda Noite*, escolha um jogador (exceto o mesmo da Noite anterior), se for o Demônio, ele não age esta Noite e descobre quem você é."
+    "ability": "Toda noite*, escolha um jogador (diferente do anterior): o Demônio, se escolhido, descobre quem você é e não acorda esta Noite."
   },
   {
     "id": "innkeeper",
@@ -418,7 +418,7 @@
     "reminders": ["Protegido",
       "Bêbado"],
     "setup": false,
-    "ability": "Toda Noite*, escolha 2 jogadores: eles não morrem esta Noite; um deles fica bêbado até o próximo anoitecer."
+    "ability": "Toda noite*, escolha 2 jogadores: eles não morrem esta noite, mas 1 fica bêbado até o anoitecer."
   },
   {
     "id": "gambler",
@@ -431,7 +431,7 @@
     "otherNightReminder": "O Apostador escolhe um jogador e um personagem. Se incorreto, o jogador morre.",
     "reminders": ["Morto"],
     "setup": false,
-    "ability": "Toda Noite*, escolha um jogador e tente adivinhar seu personagem. Se errar, você morre."
+    "ability": "Toda noite*, escolha um jogador e tente adivinhar seu personagem. Se errar, você morre."
   },
   {
     "id": "gossip",
@@ -444,7 +444,7 @@
     "otherNightReminder": "Se a afirmação pública da fofoqueira for verdadeira: • Escolha um jogador que não esteja protegido contra a morte esta noite. Esse jogador morre.",
     "reminders": ["Morto"],
     "setup": false,
-    "ability": "Todo dia, você pode fazer UMA afirmação publicamente: Se for verdade, alguém morrerá durante a Noite."
+    "ability": "Todo dia, você pode fazer um anúncio publicamente. À noite, se era verdade, alguém morre."
   },
   {
     "id": "courtier",
@@ -460,7 +460,7 @@
       "Bêbado 1",
       "Usado"],
     "setup": false,
-    "ability": "Uma vez por jogo, durante a Noite, você pode escolher um personagem: se estiver em jogo, ele fica bêbado por 3 Noites e 3 Dias."
+    "ability": "Uma vez por jogo, à Noite, você pode escolher um personagem: ele fica bêbado por 3 Noites e 3 Dias."
   },
   {
     "id": "professor",
@@ -474,7 +474,7 @@
     "reminders": ["Vivo",
       "Usado"],
     "setup": false,
-    "ability": "Uma vez por jogo, durante a Noite*, você pode escolher um jogador morto: se for um Cidadão, ressuscita imediatamente."
+    "ability": "Uma vez por jogo, à Noite*, você pode escolher um jogador morto: caso seja um Cidadão, é ressuscitado."
   },
   {
     "id": "minstrel",
@@ -487,7 +487,7 @@
     "otherNightReminder": "Remova o marcador “Todos bêbados”. Se um Lacaio morreu hoje: Todos os jogadores, exceto o Bardo, estão bêbados. Coloque o marcador “Todos bêbados”.",
     "reminders": ["Todos Bêbados"],
     "setup": false,
-    "ability": "Se um Lacaio morrer durante o Dia, todos os outros jogadores ficam bêbados nesta Noite até o próximo anoitecer."
+    "ability": "Se um Lacaio morrer por execução, todos os outros jogadores (exceto Viajantes) ficam bêbados até o anoitecer do dia seguinte."
   },
   {
     "id": "tealady",
@@ -500,7 +500,7 @@
     "otherNightReminder": "",
     "reminders": ["Protegido"],
     "setup": false,
-    "ability": "Se ambos os seus vizinhos vivos forem do Bem, não poderão morrer."
+    "ability": "Se ambos os seus vizinhos vivos são do bem, não podem morrer."
   },
   {
     "id": "pacifist",
@@ -526,7 +526,7 @@
     "otherNightReminder": "",
     "reminders": ["Usado"],
     "setup": false,
-    "ability": "A sua primeira morte é anulada."
+    "ability": "Na primeira vez que você morreria, não morre."
   },
   {
     "id": "tinker",
@@ -539,7 +539,7 @@
     "otherNightReminder": "O mecânico pode morrer.",
     "reminders": ["Morto"],
     "setup": false,
-    "ability": "Você pode morrer a qualquer momento"
+    "ability": "Você pode morrer a qualquer momento."
   },
   {
     "id": "moonchild",
@@ -552,7 +552,7 @@
     "otherNightReminder": "Se a Filha da Noite usou sua habilidade para atingir um jogador hoje: • Se aquele jogador for do bem, ele morre.",
     "reminders": ["Morto"],
     "setup": false,
-    "ability": "Quando você for avisado que morreu, escolha um jogador (em segredo ou publicamente): se ele for do bem, morrerá esta Noite."
+    "ability": "Quando você for avisado que morreu, escolha um jogador publicamente: À Noite, se o escolhido era do bem, morre."
   },
   {
     "id": "goon",
@@ -565,7 +565,7 @@
     "otherNightReminder": "Se um jogador usou sua habilidade de personagem para escolher o Capanga: • O Capanga se torna do mesmo alinhamneto (bem/mal) desse jogador. • Informe ao Capanga o seu alinhamneto atual.",
     "reminders": ["Bêbado"],
     "setup": false,
-    "ability": "Toda Noite, o primeiro jogador a escolher você com uma habilidade, fica bêbado até o próximo anoitecer. Você se junta ao time dele (bem/mal)."
+    "ability": "Toda Noite, o primeiro jogador a escolher você com sua habilidade, fica bêbado até o anoitecer. Você se junta ao time dele."
   },
   {
     "id": "lunatic",
@@ -580,7 +580,7 @@
       "Ataque 2",
       "Ataque 3"],
     "setup": false,
-    "ability": "Você acredita ser o Demônio, mas sua habilidade não funciona. O Demônio sabe quem você é e quem você ataca."
+    "ability": "Você acredita ser o Demônio, mas você não é. O Demônio sabe quem você é e quem você escolhe à noite."
   },
   {
     "id": "godfather",
@@ -594,7 +594,7 @@
     "reminders": ["Morreu Hoje",
       "Morto"],
     "setup": true,
-    "ability": "Você sabe quais Forasteiros estão em jogo. Se um deles morrer durante o Dia, você escolhe um jogador para matar esta Noite. [-1 ou +1 Forasteiro]"
+    "ability": "Você começa sabendo quais Forasteiros estão em jogo. Se um Forasteiro morreu de dia, você escolhe um jogador à noite: ele morre. [-1 ou +1 Forasteiro]"
   },
   {
     "id": "devilsadvocate",
@@ -607,7 +607,7 @@
     "otherNightReminder": "O Advogado do Diabo aponta para um jogador vivo, diferente do escolhido na noite anterior. Esse jogador sobrevive a execução amanhã",
     "reminders": ["Sobrevive a execução"],
     "setup": false,
-    "ability": "Toda Noite, escolha um jogador (exceto o da Noite anterior): durante o Dia, ele não morrerá se for executado."
+    "ability": "Toda noite, escolha um jogador vivo(diferente do anterior): de dia, ele não morrerá se for executado."
   },
   {
     "id": "assassin",
@@ -621,7 +621,7 @@
     "reminders": ["Morto",
       "Usado"],
     "setup": false,
-    "ability": "Uma vez por jogo, durante a Noite*, escolha um jogador: ele morre mesmo que não possa."
+    "ability": "Uma vez por jogo, à Noite*, escolha um jogador: ele morre, mesmo que algo impeça."
   },
   {
     "id": "mastermind",
@@ -634,7 +634,7 @@
     "otherNightReminder": "",
     "reminders": [],
     "setup": false,
-    "ability": "Se o Demônio morrer por execução, o jogo continua por mais 1 dia. No dia seguinte, se um jogador for executado o time dele perde."
+    "ability": "Se o Demônio morrer por execução (finalizando o jogo), jogue por mais 1 dia. Se então, um jogador for executado o time dele perde."
   },
   {
     "id": "zombuul",
@@ -648,7 +648,7 @@
     "reminders": ["Morreu hoje",
       "Morto"],
     "setup": false,
-    "ability": "Toda Noite*, se ninguém morreu durante o Dia, escolha um jogador: ele morre. Na primeira vez que você morre, permanece vivo em segredo."
+    "ability": "Toda Noite*, se ninguém morreu de dia, escolha um jogador: ele morre. Na 1ª vez que você morre, permanece vivo, mas é lido como morto."
   },
   {
     "id": "pukka",
@@ -662,7 +662,7 @@
     "reminders": ["Envenenado",
       "Morto"],
     "setup": false,
-    "ability": "Toda Noite, escolha um jogador: ele é envenenado até a próxima Noite, então morre. "
+    "ability": "Toda Noite, escolha um jogador: ele é envenenado. O jogador envenenado anteriormente morre e então é curado do veneno."
   },
   {
     "id": "shabaloth",
@@ -676,7 +676,7 @@
     "reminders": ["Morto",
       "Vivo"],
     "setup": false,
-    "ability": "Toda Noite*, escolha dois jogadores: eles morrem na ordem que você escolheu. Um jogador escolhido na Noite anterior pode ser ressuscitado."
+    "ability": "Toda Noite*, escolha dois jogadores: eles morrem na ordem que você escolheu. Um jogador escolhido na noite anterior pode ser ressuscitado."
   },
   {
     "id": "po",
@@ -690,7 +690,7 @@
     "reminders": ["Morto",
       "3 Ataques"],
     "setup": false,
-    "ability": "Toda Noite*, se quiser, escolha um jogador: ele morre. Se você optou por não escolher na Noite passada, escolha 3 jogadores: eles morrem na ordem que você escolheu."
+    "ability": "Toda Noite*, você pode escolher um jogador: ele morre. Se a sua última escolha foi "ninguém", escolha 3 jogadores: eles morrem na ordem que você escolheu."
   },
   {
     "id": "apprentice",
