@@ -3,7 +3,7 @@ const https = require("https");
 const WebSocket = require("ws");
 const client = require("prom-client");
 
-// Create a Registry which registers the metrics
+// Create a Registry which registers the metric
 const register = new client.Registry();
 // Add a default label which is added to all metrics
 register.setDefaultLabels({
