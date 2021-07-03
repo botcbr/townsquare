@@ -1,7 +1,7 @@
 <template>
   <Modal class="editions" v-if="modals.edition" @close="toggleModal('edition')">
     <div v-if="!isCustom">
-      <h3>Selecione uma Edição:</h3>
+      <h3>Select an edition:</h3>
       <ul class="editions">
         <li
           v-for="edition in editions"
@@ -24,39 +24,29 @@
             backgroundImage: `url(${require('../../assets/editions/custom.png')})`
           }"
         >
-          Cenários/Personagens Personalizados
+          Custom Script / Characters
         </li>
       </ul>
     </div>
     <div class="custom" v-else>
-      <h3>Carregue um Cenário/Personagem Personalizado</h3>
-       Para jogar com um script personalizado, você precisa selecionar os personagens que deseja
-       para jogar no oficial
+      <h3>Load custom script / characters</h3>
+      To play with a custom script, you need to select the characters you want
+      to play with in the official
       <a href="https://bloodontheclocktower.com/script-tool/" target="_blank"
-        >Ferramenta de Script</a
+        >Script Tool</a
       >
-       e carregue o "custom-list.json" gerado diretamente aqui ou
-       forneça uma URL para esse arquivo JSON hospedado.<br />
+      and then upload the generated "custom-list.json" either directly here or
+      provide a URL to such a hosted JSON file.<br />
       <br />
-      Para jogar com personagens personalizados, leia
+      To play with custom characters, please read
       <a
         href="https://github.com/bra1n/townsquare#custom-characters"
         target="_blank"
-        >a Documentação</a
+        >the documentation</a
       >
-      sobre como escrever um arquivo de definição de caractere personalizado.
-      <b>Carregue apenas arquivos JSON personalizados de fontes em que você confia!</b>
-      <h3>Alguns scripts brasileiros:</h3>
-      <ul class="scripts">
-        <li
-          v-for="(script, index) in scriptsbrasileiros"
-          :key="index"
-          @click="handleURL(script[1])"
-        >
-          {{ script[0] }}
-        </li>
-      </ul>
-      <h3>Alguns scripts personalizados populares:</h3>
+      on how to write a custom character definition file.
+      <b>Only load custom JSON files from sources that you trust!</b>
+      <h3>Some popular custom scripts:</h3>
       <ul class="scripts">
         <li
           v-for="(script, index) in scripts"
@@ -74,13 +64,13 @@
       />
       <div class="button-group">
         <div class="button" @click="openUpload">
-          <font-awesome-icon icon="file-upload" /> Insira o Arquivo JSON
+          <font-awesome-icon icon="file-upload" /> Upload JSON
         </div>
         <div class="button" @click="promptURL">
-          <font-awesome-icon icon="link" /> Insira o Link
+          <font-awesome-icon icon="link" /> Enter URL
         </div>
         <div class="button" @click="isCustom = false">
-          <font-awesome-icon icon="undo" /> Voltar
+          <font-awesome-icon icon="undo" /> Back
         </div>
       </div>
     </div>
@@ -91,6 +81,7 @@
 import editionJSON from "../../editions";
 import { mapMutations, mapState } from "vuex";
 import Modal from "./Modal";
+
 export default {
   components: {
     Modal
@@ -99,54 +90,29 @@ export default {
     return {
       editions: editionJSON,
       isCustom: false,
-      scriptsbrasileiros:  [
-        [
-          "Madness Por: Kildare",
-          "https://gist.githubusercontent.com/botcbr/3397ae5dd4f9747cf4c88823522e0b18/raw/bd19ff1e93d22997d756738b8877729be2b8777b/Madness.json"
-        ],
-        [
-          "The Power of the Death Por: Kildare",
-          "https://gist.githubusercontent.com/botcbr/3086824e41906d9450a9ab63addd5cd8/raw/69e4a072633080c3f640f4dadd54a66933bfb3d2/The%2520Power%2520of%2520Death.txt"
-        ],
-        [
-          "Folia 5.1 Por: Kamekura",
-          "https://gist.githubusercontent.com/botcbr/31e9d343d3a789d1a6137d767d67f0d2/raw/b35060c882c991661d43d99b9014e3128744388b/Folia.txt"        ]
-       ],
       scripts: [
         [
           "Deadly Penance Day",
           "https://gist.githubusercontent.com/bra1n/0337cc44c6fd2c44f7589256ed5486d2/raw/16be38fa3c01aaf49827303ac80577bdb52c0b25/penanceday.json"
         ],
         [
-          "Paranoia",
-          "https://gist.githubusercontent.com/botcbr/e1b0cc322a71f92c28f736f01463313b/raw/c5ca27a6393d0c4a467bb600cbbe9f6fcf163ee3/gistfile1.txt"
+          "Catfishing 11.1",
+          "https://gist.githubusercontent.com/bra1n/8a5ec41a7bbf945f6b7dfc1cef72b569/raw/a312ab93c2f302e0ef83c8b65a4e8e82760fda3a/catfishing.json"
         ],
         [
-          "Catfishing 9.0",
-          "https://gist.githubusercontent.com/bra1n/8a5ec41a7bbf945f6b7dfc1cef72b569/raw/fed370d55554e0d83e9d56023c230099f41d0660/catfishing.json"
-        ],
-        [
-          "Trouble with Violets",
-          "https://gist.githubusercontent.com/botcbr/a9c768df3add03194b57a834f40e0069/raw/a2f5b1d2c17ce21f80c96ab84405253757b2a104/TroubleWithViolets"
-        ],
-        [
-          "Evil's Dominion",
-          "https://gist.githubusercontent.com/botcbr/c6bf519baa9abef9014f51fb02ae1a9a/raw/5202a96b7b238b54cd28e073f0a3f35543c2f993/Evil'sDominion"
-        ],
-        [
-          "On Thin Ice (5 ou 6 jogadores)",
+          "On Thin Ice (Teensyville)",
           "https://gist.githubusercontent.com/bra1n/8dacd9f2abc6f428331ea1213ab153f5/raw/0cacbcaf8ed9bddae0cca25a9ada97e9958d868b/on-thin-ice.json"
         ],
         [
-          "Race To The Bottom (5 ou 6 jogadores)",
+          "Race To The Bottom (Teensyville)",
           "https://gist.githubusercontent.com/bra1n/63e1354cb3dc9d4032bcd0623dc48888/raw/5acb0eedcc0a67a64a99c7e0e6271de0b7b2e1b2/race-to-the-bottom.json"
         ],
         [
-          "Frankenstein's Mayor por: Ted (5 ou 6 jogadores)",
+          "Frankenstein's Mayor by Ted (Teensyville)",
           "https://gist.githubusercontent.com/bra1n/32c52b422cc01b934a4291eeb81dbcee/raw/5bf770693bbf7aff5e86601c82ca4af3222f4ba6/Frankensteins_Mayor_by_Ted.json"
         ],
         [
-          "Vigormortis High School (5 ou 6 jogadores)",
+          "Vigormortis High School (Teensyville)",
           "https://gist.githubusercontent.com/bra1n/1f65bd4a999524719d5dabe98c3c2d27/raw/22bbec6bf56a51a7459e5ae41ed47e41971c5445/VigormortisHighSchool.json"
         ]
       ]
@@ -197,19 +163,15 @@ export default {
       if (metaIndex > -1) {
         meta = roles.splice(metaIndex, 1).pop();
       }
-      const customRoles = roles.map(role => {
-        role.id = role.id.toLocaleLowerCase().replace(/[^a-z0-9]/g, "");
-        return role;
-      });
-      this.$store.commit("setCustomRoles", customRoles);
+      this.$store.commit("setCustomRoles", roles);
       this.$store.commit(
         "setEdition",
         Object.assign({}, meta, { id: "custom" })
       );
       // check for fabled and set those too, if present
-      if (customRoles.some(({ id }) => this.$store.state.fabled.has(id))) {
+      if (roles.some(({ id }) => this.$store.state.fabled.has(id))) {
         const fabled = [];
-        customRoles.forEach(({ id }) => {
+        roles.forEach(({ id }) => {
           if (this.$store.state.fabled.has(id)) {
             fabled.push(this.$store.state.fabled.get(id));
           }
