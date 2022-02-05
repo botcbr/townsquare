@@ -70,7 +70,7 @@
           <font-awesome-icon icon="link" /> Enter URL
         </div>
         <div class="button" @click="isCustom = false">
-          <font-awesome-icon icon="undo" /> Back
+          <font-awesome-icon icon="undo" /> Voltar
         </div>
       </div>
     </div>
