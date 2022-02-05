@@ -91,7 +91,7 @@ export default {
       editions: editionJSON,
       isCustom: false,
       scripts: [
-              [
+        [
           "Hoist the Colours",
           "https://gist.githubusercontent.com/botcbr/94956d64c1fa2904e784ad76173f6c78/raw/a1ead7433f89d4c7e754a0d135f3813299269b73/Hoist%2520the%2520Colours.json"
         ],
