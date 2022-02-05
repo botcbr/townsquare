@@ -91,6 +91,10 @@ export default {
       editions: editionJSON,
       isCustom: false,
       scripts: [
+              [
+          "Hoist the Colours",
+          "https://gist.githubusercontent.com/botcbr/94956d64c1fa2904e784ad76173f6c78/raw/a1ead7433f89d4c7e754a0d135f3813299269b73/Hoist%2520the%2520Colours.json"
+        ],
         [
           "Deadly Penance Day",
           "https://gist.githubusercontent.com/bra1n/0337cc44c6fd2c44f7589256ed5486d2/raw/16be38fa3c01aaf49827303ac80577bdb52c0b25/penanceday.json"
