@@ -73,9 +73,9 @@
     "edition": "tb",
     "team": "townsfolk",
     "firstNight": 37,
-    "firstNightReminder": "A vidente aponta para dois jogadores. Sinalize com cabeça(sim ou não) para indicar se algum destes jogadores é um Demônio. ",
+    "firstNightReminder": "A vidente aponta para dois jogadores. Sinalize com cabeça (sim ou não) para indicar se algum destes jogadores é um Demônio. ",
     "otherNight": 54,
-    "otherNightReminder": "A vidente aponta para dois jogadores. Sinalize com cabeça(sim ou não) para indicar se algum destes jogadores é um Demônio. ",
+    "otherNightReminder": "A vidente aponta para dois jogadores. Sinalize com cabeça (sim ou não) para indicar se algum destes jogadores é um Demônio. ",
     "reminders": ["Red herring"],
     "setup": false,
     "ability": "A cada noite, escolha 2 jogadores: você descobre se algum deles é um Demônio. Há um jogador bom que registra como Demônio para você."
